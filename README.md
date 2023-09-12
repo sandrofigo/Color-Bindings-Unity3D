@@ -2,7 +2,7 @@
 
 [![openupm](https://img.shields.io/npm/v/com.sandrofigo.colorbindings?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.sandrofigo.colorbindings/)
 
-A library for scriptable objects to store colors that are then automatically applied to Unity UI elements.
+A Unity extension to store colors that are then automatically applied to UI components.
 
 ---
 

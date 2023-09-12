@@ -1,0 +1,8 @@
+{
+  "$schema": "./build.schema.json",
+  "ChangelogFile": "./CHANGELOG.md",
+  "CheckForUnityMetaFilesIncludedDirectories": [
+    "./Color Bindings/Assets/ColorBindings"
+  ],
+  "UnityPackageFile": "./Color Bindings/Assets/ColorBindings/package.json"
+}
