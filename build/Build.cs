@@ -75,7 +75,9 @@ partial class Build : NukeBuild
         .Triggers(PublishGitHubRelease);
 
     Target Doctor => _ => _
-        .DependsOn(Publish)
+        .DependsOn(CheckForUnityMetaFiles)
+        .DependsOn(UnityPackageVersionMatchesGitTagVersion)
+        .DependsOn(ChangelogVersionMatchesGitTagVersion)
         .Executes(() =>
         {
             LogFancyStatus(SucceededTargets.Contains(CheckForUnityMetaFiles), "Unity .meta files exist on current commit");
