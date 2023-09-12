@@ -1,0 +1,18 @@
+{
+    "name": "com.sandrofigo.color-bindings.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:769ab053cbd29ee4e9dc52b43db3f385"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
