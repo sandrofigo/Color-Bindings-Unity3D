@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Apply color directly for images when changing bindable color reference
-- Apply color directly for TMP Texts when changing bindable color reference
+- Apply color directly for TMP texts when changing bindable color reference
 
 ## [1.0.0] - 2023-09-12
 
