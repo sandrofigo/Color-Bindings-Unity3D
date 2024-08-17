@@ -39,6 +39,12 @@ namespace ColorBindings
         {
             image.color = Color.clear;
         }
+
+        private void OnValidate()
+        {
+            if (color != null)
+                UpdateColor();
+        }
 #endif
     }
 }
