@@ -1,6 +1,6 @@
 {
   "name": "com.sandrofigo.colorbindings",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Color Bindings",
   "description": "A Unity extension to store colors that are then automatically applied to UI components",
   "documentationUrl": "https://github.com/sandrofigo/Color-Bindings-Unity3D",
