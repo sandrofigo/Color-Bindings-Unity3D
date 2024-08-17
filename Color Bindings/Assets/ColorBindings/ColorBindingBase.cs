@@ -13,13 +13,13 @@ namespace ColorBindings
         protected abstract bool Initialize();
 
         protected abstract void SetColor();
-        
+
 #if UNITY_EDITOR
         /// <summary>
         /// Used for internal editor tools.
         /// </summary>
         protected abstract void ClearColorInternal();
-        
+
         /// <summary>
         /// Used for internal editor tools.
         /// </summary>
