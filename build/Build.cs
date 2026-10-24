@@ -19,21 +19,6 @@ using Spectre.Console;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.PathConstruction;
 
-[GitHubActions("tests",
-    GitHubActionsImage.UbuntuLatest,
-    OnPushBranches = new[] { "main" },
-    InvokedTargets = new[] { nameof(Test) },
-    PublishCondition = "always()",
-    EnableGitHubToken = true,
-    JobConcurrencyCancelInProgress = true
-)]
-[GitHubActions("publish",
-    GitHubActionsImage.UbuntuLatest,
-    InvokedTargets = new[] { nameof(Publish) },
-    PublishCondition = "always()",
-    EnableGitHubToken = true,
-    OnPushTags = new[] { "v[0-9]+.[0-9]+.[0-9]+" }
-)]
 partial class Build : NukeBuild
 {
     public static int Main() => Execute<Build>(x => x.Test);
