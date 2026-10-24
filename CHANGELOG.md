@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Option to override the alpha value of bindable colors for images, TMP texts and buttons
+
 ## [1.1.0] - 2024-08-17
 
 ### Added
