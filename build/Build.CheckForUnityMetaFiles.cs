@@ -7,8 +7,9 @@ using Serilog;
 
 partial class Build
 {
-    [Parameter] AbsolutePath[] CheckForUnityMetaFilesIncludedDirectories;
-    [Parameter] AbsolutePath[] CheckForUnityMetaFilesExcludedDirectories;
+    // Declared as string[] because NUKE fails to read AbsolutePath[] values from the parameters file
+    [Parameter] string[] CheckForUnityMetaFilesIncludedDirectories;
+    [Parameter] string[] CheckForUnityMetaFilesExcludedDirectories;
 
     Target CheckForUnityMetaFiles => _ => _
         .Executes(() =>
@@ -16,10 +17,16 @@ partial class Build
             Log.Information("Checking if all necessary Unity .meta files exist...");
 
             // Verify that all files and directories have a Unity meta file (if the meta file is missing the file will be ignored when imported into Unity)
-            AssertThatUnityMetaFilesExist(CheckForUnityMetaFilesIncludedDirectories, CheckForUnityMetaFilesIncludedDirectories, out int totalDirectoriesChecked, out int totalFilesChecked);
+            AssertThatUnityMetaFilesExist(ToAbsolutePaths(CheckForUnityMetaFilesIncludedDirectories), ToAbsolutePaths(CheckForUnityMetaFilesExcludedDirectories), out int totalDirectoriesChecked, out int totalFilesChecked);
 
             Log.Information("Checked a total of {Directories} directories and {Files} files", totalDirectoriesChecked, totalFilesChecked);
         });
+
+    /// <summary>
+    /// Resolves relative paths against the root directory.
+    /// </summary>
+    static AbsolutePath[] ToAbsolutePaths(string[] paths)
+        => paths?.Select(p => PathConstruction.HasPathRoot(p) ? (AbsolutePath)p : RootDirectory / p).ToArray();
 
     /// <summary>
     /// Checks recursively if all files and folders have a Unity meta file.

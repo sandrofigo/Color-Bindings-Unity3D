@@ -47,8 +47,7 @@ partial class Build
 
     string GetGitHubChangelogBody()
     {
-        ChangeLog changelog = ChangelogTasks.ReadChangelog(ChangelogFile);
-        ReleaseNotes latestReleaseNotes = changelog.GetLatestReleaseNotes();
+        ReleaseNotes latestReleaseNotes = ChangelogExtensions.GetLatestReleaseNotes(ChangelogFile);
         var trimmedNotes = latestReleaseNotes.Notes.SkipUntil(n => !string.IsNullOrWhiteSpace(n)).Reverse().SkipUntil(n => !string.IsNullOrWhiteSpace(n)).Reverse();
 
         return string.Join(Environment.NewLine, trimmedNotes);

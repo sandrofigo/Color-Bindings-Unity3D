@@ -1,6 +1,5 @@
 using NuGet.Versioning;
 using Nuke.Common;
-using Nuke.Common.ChangeLog;
 using Nuke.Common.IO;
 using Serilog;
 
@@ -22,6 +21,6 @@ partial class Build
     {
         Assert.True(pathToChangelogFile != null, "No path has been provided!");
 
-        return ChangelogTasks.ReadChangelog(pathToChangelogFile).GetLatestReleaseNotes()?.Version;
+        return ChangelogExtensions.GetLatestReleaseNotes(pathToChangelogFile)?.Version;
     }
 }
