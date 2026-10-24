@@ -9,21 +9,63 @@ namespace ColorBindings
         [SerializeField]
         private BindableColor background;
 
+        [SerializeField]
+        private bool overrideBackgroundAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideBackgroundAlpha))]
+        private float backgroundAlpha = 1f;
+
         [Header("States")]
         [SerializeField]
         private BindableColor normal;
 
         [SerializeField]
+        private bool overrideNormalAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideNormalAlpha))]
+        private float normalAlpha = 1f;
+
+        [SerializeField]
         private BindableColor highlighted;
+
+        [SerializeField]
+        private bool overrideHighlightedAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideHighlightedAlpha))]
+        private float highlightedAlpha = 1f;
 
         [SerializeField]
         private BindableColor pressed;
 
         [SerializeField]
+        private bool overridePressedAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overridePressedAlpha))]
+        private float pressedAlpha = 1f;
+
+        [SerializeField]
         private BindableColor selected;
 
         [SerializeField]
+        private bool overrideSelectedAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideSelectedAlpha))]
+        private float selectedAlpha = 1f;
+
+        [SerializeField]
         private BindableColor disabled;
+
+        [SerializeField]
+        private bool overrideDisabledAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideDisabledAlpha))]
+        private float disabledAlpha = 1f;
 
         private Button button;
 
@@ -50,14 +92,14 @@ namespace ColorBindings
 #endif
 
             ColorBlock buttonColors = button.colors;
-            buttonColors.normalColor = normal.Value;
-            buttonColors.highlightedColor = highlighted.Value;
-            buttonColors.pressedColor = pressed.Value;
-            buttonColors.selectedColor = selected.Value;
-            buttonColors.disabledColor = disabled.Value;
+            buttonColors.normalColor = GetColor(normal, overrideNormalAlpha, normalAlpha);
+            buttonColors.highlightedColor = GetColor(highlighted, overrideHighlightedAlpha, highlightedAlpha);
+            buttonColors.pressedColor = GetColor(pressed, overridePressedAlpha, pressedAlpha);
+            buttonColors.selectedColor = GetColor(selected, overrideSelectedAlpha, selectedAlpha);
+            buttonColors.disabledColor = GetColor(disabled, overrideDisabledAlpha, disabledAlpha);
             button.colors = buttonColors;
 
-            button.targetGraphic.color = background.Value;
+            button.targetGraphic.color = GetColor(background, overrideBackgroundAlpha, backgroundAlpha);
         }
 
 #if UNITY_EDITOR
