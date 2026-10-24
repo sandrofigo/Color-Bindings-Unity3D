@@ -9,6 +9,13 @@ namespace ColorBindings
         [SerializeField]
         private BindableColor color;
 
+        [SerializeField]
+        private bool overrideAlpha;
+
+        [SerializeField]
+        [AlphaOverride(nameof(overrideAlpha))]
+        private float alpha = 1f;
+
         private Image image;
 
         protected override bool Initialize()
@@ -31,7 +38,7 @@ namespace ColorBindings
             PrefabUtility.RecordPrefabInstancePropertyModifications(image);
 #endif
 
-            image.color = color.Value;
+            image.color = GetColor(color, overrideAlpha, alpha);
         }
 
 #if UNITY_EDITOR

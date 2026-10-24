@@ -14,6 +14,16 @@ namespace ColorBindings
 
         protected abstract void SetColor();
 
+        protected static Color GetColor(BindableColor bindableColor, bool overrideAlpha, float alpha)
+        {
+            Color color = bindableColor.Value;
+
+            if (overrideAlpha)
+                color.a = alpha;
+
+            return color;
+        }
+
 #if UNITY_EDITOR
         /// <summary>
         /// Used for internal editor tools.
