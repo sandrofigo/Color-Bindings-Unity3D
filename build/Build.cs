@@ -17,7 +17,6 @@ using Octokit;
 using Serilog;
 using Spectre.Console;
 using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 
 [GitHubActions("tests",
