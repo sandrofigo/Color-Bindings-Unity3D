@@ -19,7 +19,7 @@ namespace ColorBindings
             Color color = bindableColor.Value;
 
             if (overrideAlpha)
-                color.a = alpha;
+                color.a = Mathf.Clamp01(alpha);
 
             return color;
         }
