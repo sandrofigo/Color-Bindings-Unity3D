@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Linq;
 using NuGet.Versioning;
 using Nuke.Common;
-using Nuke.Common.ChangeLog;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.GitHub;
@@ -21,16 +20,7 @@ partial class Build
         {
             Assert.True(ChangelogFile != null, "No path has been provided!");
 
-
-            SemanticVersion version = GitRepository.GetLatestVersionTagOnCurrentCommit();
-
-            var releaseDraft = new NewRelease($"v{version}")
-            {
-                Draft = true,
-                Name = $"v{version}",
-                Prerelease = version.IsPrerelease,
-                Body = GetGitHubChangelogBody()
-            };
+            NewRelease releaseDraft = CreateGitHubReleaseDraft(GitRepository.GetLatestVersionTagOnCurrentCommit());
 
             string owner = GitRepository.GetGitHubOwner();
             string name = GitRepository.GetGitHubName();
@@ -45,11 +35,21 @@ partial class Build
             await GitHubTasks.GitHubClient.Repository.Release.Edit(owner, name, release.Id, new ReleaseUpdate { Draft = false });
         });
 
+    NewRelease CreateGitHubReleaseDraft(SemanticVersion version)
+    {
+        return new NewRelease($"v{version}")
+        {
+            Draft = true,
+            Name = $"v{version}",
+            Prerelease = version.IsPrerelease,
+            Body = GetGitHubChangelogBody()
+        };
+    }
+
     string GetGitHubChangelogBody()
     {
-        ReleaseNotes latestReleaseNotes = ChangelogExtensions.GetLatestReleaseNotes(ChangelogFile);
-        var trimmedNotes = latestReleaseNotes.Notes.SkipUntil(n => !string.IsNullOrWhiteSpace(n)).Reverse().SkipUntil(n => !string.IsNullOrWhiteSpace(n)).Reverse();
+        var latestRelease = GetLatestChangelogRelease(ChangelogFile);
 
-        return string.Join(Environment.NewLine, trimmedNotes);
+        return string.Join(Environment.NewLine + Environment.NewLine, latestRelease.Categories.OrderBy(c => c.Type));
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using NuGet.Versioning;
 using Nuke.Common;
-using Nuke.Common.ChangeLog;
 using Nuke.Common.CI;
 using Nuke.Common.CI.GitHubActions;
 using Nuke.Common.CI.GitHubActions.Configuration;
@@ -69,9 +68,21 @@ partial class Build : NukeBuild
             LogFancyStatus(SucceededTargets.Contains(UnityPackageVersionMatchesGitTagVersion), "Unity package version matches git tag version");
             LogFancyStatus(SucceededTargets.Contains(ChangelogVersionMatchesGitTagVersion), "Changelog version matches git tag version");
 
+            // Without a version tag on the current commit, preview the release for the latest version in the changelog
+            bool hasVersionTag = GitRepository.CurrentCommitHasVersionTag();
+            SemanticVersion version = hasVersionTag ? GitRepository.GetLatestVersionTagOnCurrentCommit() : GetLatestVersionFromChangelog(ChangelogFile);
+            var release = CreateGitHubReleaseDraft(version);
+
             AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine(":notebook: Changelog Content:");
-            AnsiConsole.MarkupLine($"[gray]{GetGitHubChangelogBody()}[/]");
+            AnsiConsole.MarkupLine($":notebook: GitHub Release Preview [gray](version from {(hasVersionTag ? "git tag" : "changelog")})[/]:");
+            AnsiConsole.Write(new Panel(new Rows(
+                    new Markup($"[bold]Tag:[/] {Markup.Escape(release.TagName)}"),
+                    new Markup($"[bold]Name:[/] {Markup.Escape(release.Name)}"),
+                    new Markup($"[bold]Prerelease:[/] {release.Prerelease}"),
+                    new Text(""),
+                    new Text(release.Body, new Style(Color.Grey))))
+                .Header(Markup.Escape(release.Name))
+                .Expand());
 
             return;
             void LogFancyStatus(bool value, string text) => AnsiConsole.MarkupLine($"[{(value ? "green" : "red")}]{(value ? ":check_mark:" : ":multiply:")} {text}[/]");

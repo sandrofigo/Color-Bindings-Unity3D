@@ -1,3 +1,5 @@
+using System.Linq;
+using KeepAChangelog.IO;
 using NuGet.Versioning;
 using Nuke.Common;
 using Nuke.Common.IO;
@@ -19,8 +21,18 @@ partial class Build
 
     static SemanticVersion GetLatestVersionFromChangelog(AbsolutePath pathToChangelogFile)
     {
+        Release latestRelease = GetLatestChangelogRelease(pathToChangelogFile);
+
+        return latestRelease == null ? null : SemanticVersion.Parse(latestRelease.Version);
+    }
+
+    static Release GetLatestChangelogRelease(AbsolutePath pathToChangelogFile)
+    {
         Assert.True(pathToChangelogFile != null, "No path has been provided!");
 
-        return ChangelogExtensions.GetLatestReleaseNotes(pathToChangelogFile)?.Version;
+        return Changelog.FromFile(pathToChangelogFile)
+            .Releases
+            .Where(r => r.IsReleased)
+            .MaxBy(r => SemanticVersion.Parse(r.Version));
     }
 }
