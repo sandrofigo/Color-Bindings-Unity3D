@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,11 +258,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 11400000, guid: 63fd33e4deb3459408220fa85fe8cdf1, type: 2}
+  overrideBackgroundAlpha: 0
+  backgroundAlpha: 1
   normal: {fileID: 11400000, guid: 63fd33e4deb3459408220fa85fe8cdf1, type: 2}
+  overrideNormalAlpha: 0
+  normalAlpha: 1
   highlighted: {fileID: 11400000, guid: 766cf6e031cf2b94fb610be4c703d9e8, type: 2}
+  overrideHighlightedAlpha: 0
+  highlightedAlpha: 1
   pressed: {fileID: 11400000, guid: aaafd3b07263b1740b38284875d0b76a, type: 2}
+  overridePressedAlpha: 0
+  pressedAlpha: 1
   selected: {fileID: 11400000, guid: e43149767a673444db0447765472b2f9, type: 2}
+  overrideSelectedAlpha: 0
+  selectedAlpha: 1
   disabled: {fileID: 11400000, guid: eaee2fc9268522e4a8c3c5ba1227d497, type: 2}
+  overrideDisabledAlpha: 0
+  disabledAlpha: 1
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +421,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {fileID: 11400000, guid: 766cf6e031cf2b94fb610be4c703d9e8, type: 2}
+  overrideAlpha: 0
+  alpha: 1
 --- !u!114 &793051708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,6 +755,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -859,6 +873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {fileID: 11400000, guid: e592d6e1f8482e240ae64a3a7a2f93da, type: 2}
+  overrideAlpha: 0
+  alpha: 1
 --- !u!1 &1711968667
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,6 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {fileID: 11400000, guid: e43149767a673444db0447765472b2f9, type: 2}
+  overrideAlpha: 0
+  alpha: 1
 --- !u!114 &1711968670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,6 +1116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {fileID: 11400000, guid: aaafd3b07263b1740b38284875d0b76a, type: 2}
+  overrideAlpha: 0
+  alpha: 1
 --- !u!1 &1728574538
 GameObject:
   m_ObjectHideFlags: 0
